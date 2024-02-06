@@ -1,7 +1,11 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\PartenaireController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +21,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+//Route home :
+
+Route::get('home',[HomeController::class, 'index']);
+
+// Route users:
+Route::resource('users',UserController::class);
+
+//Route projects :
+Route::resource('projects',ProjectController::class);
+
+//Route partenaire:
+Route::resource('Partenaires',PartenaireController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
