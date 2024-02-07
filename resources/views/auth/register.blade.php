@@ -1,6 +1,12 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
         @csrf
+
+        <!-- image -->
+        <div class="mt-4">
+            <label for="image">Image</label>
+            <input class='block mt-1 w-full' type="file" name="image" id="image">
+        </div>
 
         <!-- Name -->
         <div>

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->foreignId('role_id')->default(1)->constrained()->onDelete('cascade');
-            $table->string('image');
+            $table->string('image')->default('NULL');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
