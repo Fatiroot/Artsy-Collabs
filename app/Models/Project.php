@@ -16,7 +16,7 @@ class Project extends Model
         'date_debut',
         'date_fin',
         'status',
-        'image',
+
         'partenaire_id',
     ];
 

@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('partenaires', function (Blueprint $table) {
-            $table->id();
-            $table->String('name_company');
-            $table->string('email');
-            $table->timestamps();
-            $table->softDeletes();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('status')->default('disactive');
         });
     }
 
@@ -29,6 +25,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('partenaires');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn( 'status');
+
+        });
     }
 };

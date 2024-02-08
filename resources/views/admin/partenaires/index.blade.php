@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +10,8 @@
 
     <!-- Tailwind -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css"  rel="stylesheet" />
+
     <style>
         @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
         .font-family-karla { font-family: karla; }
@@ -20,6 +23,7 @@
         .nav-item:hover { background: orange; }
         .account-link:hover { background: #3d68ff; }
         thead{ background:burlywood;}
+        button { background:wheat; }
     </style>
 </head>
 <body class="bg-gray-100 font-family-karla flex">
@@ -29,8 +33,7 @@
        
         <button @click="isOpen = !isOpen" class="relative z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
            <img src="" alt="User Image">
-       </button>
-       
+       </button> 
 
         </div>
         <nav class="text-white text-base font-semibold pt-3">
@@ -144,71 +147,112 @@
                 <i class="fas fa-plus mr-3"></i> New Report
             </button> -->
         </header>
+
+
+
+<!-- Main modal -->
+<div id="partner-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-md max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Sign in to our platform
+                </h3>
+                <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 md:p-5">
+                <form class="space-y-4" method="post" action="{{ route('partenaires.store')}}" enctype="multipart/form-data"> 
+                    @csrf
+                    <div>
+                        <label for="name_company" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company name</label>
+                        <input type="text" name="name_company" id="name_company"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                    </div>
+                    <div>
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+                        <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required>
+                    </div>
+                    <div>
+                        <label for="image">Image</label>
+                        <input class='block mt-1 w-full' type="file" name="image" id="image">
+                    </div>
+                   
+                   
+                    <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add </button>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 
+
+        <!-- ***********************ende add partner**************************** -->
         <div class="w-full overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
                 <h1 class="text-3xl text-black pb-6">Dashboard</h1>
-    
-                <div class="flex flex-wrap mt-6">
-                    <div class="w-full lg:w-1/2 pr-0 lg:pr-2">
-                        <p class="text-xl pb-3 flex items-center">
-                            <i class="fas fa-plus mr-3"></i> Monthly Reports
-                        </p>
-                        <div class="p-6 bg-white">
-                            <canvas id="chartOne" width="400" height="200"></canvas>
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-1/2 pl-0 lg:pl-2 mt-12 lg:mt-0">
-                        <p class="text-xl pb-3 flex items-center">
-                            <i class="fas fa-check mr-3"></i> Resolved Reports
-                        </p>
-                        <div class="p-6 bg-white">
-                            <canvas id="chartTwo" width="400" height="200"></canvas>
-                        </div>
-                    </div>
-                </div>
-    
                 <div class="w-full mt-12">
-                    <p class="text-xl pb-3 flex items-center">
-                        <i class="fas fa-list mr-3"></i> Latest Users
+                <div class="flex justify-center items-center">
+                    <!-- Modal toggle -->
+                        <button data-modal-target="partner-modal" data-modal-toggle="partner-modal" class=" text-white font-bold py-2 px-4 rounded" type="button">
+                        add Partner
+                        </button>
+                </div>
+
+                <p class="text-xl pb-3 flex items-center">
+                        <i class="fas fa-list mr-3"></i> Partners
                     </p>
+
                     <div class="bg-white overflow-auto">
                         <table class="min-w-full bg-white">
                             <thead class=" text-white">
                                 <tr>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Profil</th>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Name</th>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Role</th>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
-                                    <th class=" w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Action</th>
+                                    <th class="w-1/4 text-left py-3 px-4 uppercase font-semibold text-sm">Profil</th>
+                                    <th class="w-1/4 text-left py-3 px-4 uppercase font-semibold text-sm">company name</th>
+                                    <th class="w-1/4 text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
+                                    <th class=" w-1/4 text-left py-3 px-4 uppercase font-semibold text-sm">Action</th>
                                 </tr>
                             </thead>
-                            @foreach ($users as $user )
+                            @foreach ($partenaires as $partenaire )
                             <tbody class="text-gray-700">
                                 <tr>
-                                <td class="w-1/5 text-left py-3 px-4">
-                                        <img src="{{$user->getFirstMediaUrl('images')}}" alt="" class="rounded-full h-12 w-12">
+                                    <td class="w-1/4 text-left py-3 px-4">
+                                        <img src="{{$partenaire->getFirstMediaUrl('images')}}" alt="" class="rounded-full h-12 w-12">
                                     </td>
-                                    <td class="w-1/5 text-left py-3 px-4">{{$user->name}}</td>
-                                    <td class=" w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662">{{$user->role_id}}</a></td>
-                                    <td class=" w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">{{$user->email}}</a></td>
-                                    <td class=" w-1/5 text-left py-3 px-4">
-                                        <a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">update     
-                                        </a>
-                                        <a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">delete    
-                                        </a>
+                                    <td class="w-1/4 text-left py-3 px-4">{{$partenaire->name_company}}</td>
+                                    <td class="w-1/4 text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">{{$partenaire->email}}</a></td>
+                                    <td class="w-1/4 text-left py-3 px-4">
+                                        <form action="{{route('partenaires.edit', $partenaire->id)}}" method="get">
+                                            @csrf
+                                            <input type="hidden" name="id" value="">
+                                            <button type="submit" name="editId" style="background: none; border: none;">
+                                                <a href=""><i class="fas fa-pen" style="color: #e8b04f;"></i></a>
+                                            </button>
+                                        </form>
+                                        <form action="{{route('partenaires.destroy', $partenaire->id)}}" method="post">
+                                        @method('delete')
+                                            @csrf
+                                            <input type="hidden" name="id" value="">
+                                            <button type="submit" name="editId" style="background: none; border: none;">
+                                                <a href=""><i class="fas fa-trash" style="color: #e8b04f;"></i></a>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
-                               
                             </tbody>
+
                             @endforeach
                         </table>
                     </div>
                 </div>
             </main>
-    
-            <footer class="w-full bg-white text-right p-4">
-                Built by <a target="_blank" href="https://davidgrzyb.com" class="underline">David Grzyb</a>.
-            </footer>
+
         </div>
         
     </div>
@@ -219,6 +263,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
     <!-- ChartJS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 
     <script>
         var chartOne = document.getElementById('chartOne');

@@ -29,15 +29,17 @@ Route::get('home',[HomeController::class, 'index']);
 // Route users:
 Route::resource('users',UserController::class);
 
+
+
+
+
 //Route projects :
 Route::resource('projects',ProjectController::class);
 
 //Route partenaire:
-Route::resource('Partenaires',PartenaireController::class);
+Route::resource('partenaires',PartenaireController::class);
 
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [UserController::class , 'allusers'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

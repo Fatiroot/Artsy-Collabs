@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,8 +30,7 @@
        
         <button @click="isOpen = !isOpen" class="relative z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
            <img src="" alt="User Image">
-       </button>
-       
+       </button> 
 
         </div>
         <nav class="text-white text-base font-semibold pt-3">
@@ -147,30 +147,11 @@
         <div class="w-full overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
                 <h1 class="text-3xl text-black pb-6">Dashboard</h1>
-    
-                <div class="flex flex-wrap mt-6">
-                    <div class="w-full lg:w-1/2 pr-0 lg:pr-2">
-                        <p class="text-xl pb-3 flex items-center">
-                            <i class="fas fa-plus mr-3"></i> Monthly Reports
-                        </p>
-                        <div class="p-6 bg-white">
-                            <canvas id="chartOne" width="400" height="200"></canvas>
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-1/2 pl-0 lg:pl-2 mt-12 lg:mt-0">
-                        <p class="text-xl pb-3 flex items-center">
-                            <i class="fas fa-check mr-3"></i> Resolved Reports
-                        </p>
-                        <div class="p-6 bg-white">
-                            <canvas id="chartTwo" width="400" height="200"></canvas>
-                        </div>
-                    </div>
-                </div>
-    
                 <div class="w-full mt-12">
-                    <p class="text-xl pb-3 flex items-center">
-                        <i class="fas fa-list mr-3"></i> Latest Users
+                <p class="text-xl pb-3 flex items-center">
+                        <i class="fas fa-list mr-3"></i> Artists
                     </p>
+
                     <div class="bg-white overflow-auto">
                         <table class="min-w-full bg-white">
                             <thead class=" text-white">
@@ -179,36 +160,46 @@
                                     <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Name</th>
                                     <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Role</th>
                                     <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
+                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Status</th>
                                     <th class=" w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Action</th>
                                 </tr>
                             </thead>
                             @foreach ($users as $user )
                             <tbody class="text-gray-700">
                                 <tr>
-                                <td class="w-1/5 text-left py-3 px-4">
+                                    <td class="w-1/5 text-left py-3 px-4">
                                         <img src="{{$user->getFirstMediaUrl('images')}}" alt="" class="rounded-full h-12 w-12">
                                     </td>
                                     <td class="w-1/5 text-left py-3 px-4">{{$user->name}}</td>
-                                    <td class=" w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662">{{$user->role_id}}</a></td>
-                                    <td class=" w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">{{$user->email}}</a></td>
-                                    <td class=" w-1/5 text-left py-3 px-4">
-                                        <a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">update     
-                                        </a>
-                                        <a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">delete    
-                                        </a>
+                                    <td class="w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662" value="{{ $user->role->id }}">{{ $user->role->name}}</a></td>
+                                    <td class="w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">{{$user->email}}</a></td>
+                                    <td class="w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">{{$user->status}}</a></td>
+                                    <td class="w-1/5 text-left py-3 px-4">
+                                        <form action="{{route('users.edit', $user->id)}}" method="get">
+                                            @csrf
+                                            <input type="hidden" name="id" value="">
+                                            <button type="submit" name="editId" style="background: none; border: none;">
+                                                <a href=""><i class="fas fa-pen" style="color: #e8b04f;"></i></a>
+                                            </button>
+                                        </form>
+                                        <form action="{{route('users.destroy', $user->id)}}" method="post">
+                                        @method('delete')
+                                            @csrf
+                                            <input type="hidden" name="id" value="">
+                                            <button type="submit" name="editId" style="background: none; border: none;">
+                                                <a href=""><i class="fas fa-trash" style="color: #e8b04f;"></i></a>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
-                               
                             </tbody>
+
                             @endforeach
                         </table>
                     </div>
                 </div>
             </main>
-    
-            <footer class="w-full bg-white text-right p-4">
-                Built by <a target="_blank" href="https://davidgrzyb.com" class="underline">David Grzyb</a>.
-            </footer>
+
         </div>
         
     </div>

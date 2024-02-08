@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,6 +21,7 @@
         .nav-item:hover { background: orange; }
         .account-link:hover { background: #3d68ff; }
         thead{ background:burlywood;}
+        button { background:wheat; }
     </style>
 </head>
 <body class="bg-gray-100 font-family-karla flex">
@@ -29,16 +31,15 @@
        
         <button @click="isOpen = !isOpen" class="relative z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
            <img src="" alt="User Image">
-       </button>
-       
+       </button> 
 
         </div>
         <nav class="text-white text-base font-semibold pt-3">
-            <a href="index.html" class="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
+            <a href="index.html" class="flex items-center  text-white py-4 pl-6 nav-item">
                 <i class="fas fa-tachometer-alt mr-3"></i>
                 Dashboard
             </a>
-            <a href="blank.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="blank.html" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-sticky-note mr-3"></i>
                 Users
             </a>
@@ -140,75 +141,50 @@
                     <i class="fas fa-arrow-circle-up mr-3"></i> Upgrade to Pro!
                 </button>
             </nav>
-            <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
-                <i class="fas fa-plus mr-3"></i> New Report
-            </button> -->
         </header>
         <div class="w-full overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
                 <h1 class="text-3xl text-black pb-6">Dashboard</h1>
-    
-                <div class="flex flex-wrap mt-6">
-                    <div class="w-full lg:w-1/2 pr-0 lg:pr-2">
-                        <p class="text-xl pb-3 flex items-center">
-                            <i class="fas fa-plus mr-3"></i> Monthly Reports
-                        </p>
-                        <div class="p-6 bg-white">
-                            <canvas id="chartOne" width="400" height="200"></canvas>
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-1/2 pl-0 lg:pl-2 mt-12 lg:mt-0">
-                        <p class="text-xl pb-3 flex items-center">
-                            <i class="fas fa-check mr-3"></i> Resolved Reports
-                        </p>
-                        <div class="p-6 bg-white">
-                            <canvas id="chartTwo" width="400" height="200"></canvas>
-                        </div>
-                    </div>
-                </div>
-    
                 <div class="w-full mt-12">
-                    <p class="text-xl pb-3 flex items-center">
-                        <i class="fas fa-list mr-3"></i> Latest Users
-                    </p>
+                
                     <div class="bg-white overflow-auto">
-                        <table class="min-w-full bg-white">
-                            <thead class=" text-white">
-                                <tr>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Profil</th>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Name</th>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Role</th>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
-                                    <th class=" w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Action</th>
-                                </tr>
-                            </thead>
-                            @foreach ($users as $user )
-                            <tbody class="text-gray-700">
-                                <tr>
-                                <td class="w-1/5 text-left py-3 px-4">
-                                        <img src="{{$user->getFirstMediaUrl('images')}}" alt="" class="rounded-full h-12 w-12">
-                                    </td>
-                                    <td class="w-1/5 text-left py-3 px-4">{{$user->name}}</td>
-                                    <td class=" w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662">{{$user->role_id}}</a></td>
-                                    <td class=" w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">{{$user->email}}</a></td>
-                                    <td class=" w-1/5 text-left py-3 px-4">
-                                        <a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">update     
-                                        </a>
-                                        <a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">delete    
-                                        </a>
-                                    </td>
-                                </tr>
-                               
-                            </tbody>
-                            @endforeach
-                        </table>
+                    <form method="post" action="{{route('partenaires.update', $partenaire->id)}}" class="p-4 md:p-5">
+                @csrf
+                @method('PUT')
+            <div class="grid gap-4 mb-4 grid-cols-2">
+            <div class="col-span-2 sm:col-span-1">
+                    <label for="image"
+                        class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">
+                    Profile</label>
+                    <input type="file" name="image" id="image"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        required="" value="{{$partenaire->getFirstMediaUrl('images')}}">
+                </div>
+                <div class="col-span-2 sm:col-span-1">
+                    <label for="first"
+                        class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">
+                    Company Name</label>
+                    <input type="text" name="name_company" id="first"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        required="" value="{{ $partenaire->name_company}}">
+                </div>
+                <div class="col-span-2">
+                    <label for="name"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">email</label>
+                    <input type="email" name="email" id="name"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="book title" required="" value="{{ $partenaire->email }}">
+                </div>            
+            </div>
+            <button name="update" type="submit"
+                class="text-white inline-flex items-center  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                update
+            </button>
+        </form>
                     </div>
                 </div>
             </main>
-    
-            <footer class="w-full bg-white text-right p-4">
-                Built by <a target="_blank" href="https://davidgrzyb.com" class="underline">David Grzyb</a>.
-            </footer>
+
         </div>
         
     </div>

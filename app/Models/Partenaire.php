@@ -3,17 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\HasMedia;
 
-class Partenaire extends Model
+class Partenaire extends Model implements HasMedia
 {
-    use HasFactory , SoftDeletes;
+    use HasFactory , SoftDeletes ,InteractsWithMedia;
 
     protected $fillable = [
         'name_company',
         'email',
-        'image',
+
         
 
     ];
