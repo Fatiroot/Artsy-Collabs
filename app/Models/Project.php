@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\HasMedia;
 
-class Project extends Model
+class Project extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes,InteractsWithMedia;
 
     protected $fillable = [
         'title',
@@ -16,14 +18,21 @@ class Project extends Model
         'date_debut',
         'date_fin',
         'status',
-
         'partenaire_id',
     ];
 
-    public function users(){
+    public const STATUS_LABELS=[
+        0=>'Pending',
+        1=>'Accepted',
+        2=>'Refused',
+
+    ];
+    
+
+    public function user(){
         return $this->belongsToMany(User::class);
     }
-    public function partenaires(){
+    public function partenaire(){
         return $this->belongsTo(Partenaire::class);
     }
 }

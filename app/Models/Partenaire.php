@@ -20,7 +20,7 @@ class Partenaire extends Model implements HasMedia
 
     ];
 
-    public function projects() {
+    public function project() {
         return $this->hasMany(Project::class);
     }
 }

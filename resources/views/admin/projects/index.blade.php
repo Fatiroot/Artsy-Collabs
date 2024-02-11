@@ -38,11 +38,11 @@
                 <i class="fas fa-tachometer-alt mr-3"></i>
                 Dashboard
             </a>
-            <a href="users" class="flex items-center text-white active-nav-link opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="users" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-sticky-note mr-3"></i>
                 Users
             </a>
-            <a href="projects" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="projects" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
             <i class="fas fa-sticky-note mr-3"></i>
                 Projects
             </a>
@@ -109,11 +109,11 @@
                     <i class="fas fa-tachometer-alt mr-3"></i>
                     Dashboard
                 </a>
-                <a href="users" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="users" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
                     <i class="fas fa-sticky-note mr-3"></i>
                     Users
                 </a>
-                <a href="projects" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="projects" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
                   <i class="fas fa-sticky-note mr-3"></i>
                     Projects
                 </a>
@@ -148,8 +148,13 @@
             <main class="w-full flex-grow p-6">
                 <h1 class="text-3xl text-black pb-6">Dashboard</h1>
                 <div class="w-full mt-12">
+                <div class="flex justify-center items-center">
+            <a href="{{ route('projects.create')}}" class="btn btn-primary bg-green-500 mt-5 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:shadow-outline-green active:bg-green-700">
+                Add New Project
+            </a>
+            </div>
                 <p class="text-xl pb-3 flex items-center">
-                        <i class="fas fa-list mr-3"></i> Artists
+                        <i class="fas fa-list mr-3"></i> Projects
                     </p>
 
                     <div class="bg-white overflow-auto">
@@ -157,36 +162,53 @@
                             <thead class=" text-white">
                                 <tr>
                                     <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Profil</th>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Name</th>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Role</th>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
+                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">title</th>
+                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">description</th>
+                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">date debut</th>
+                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">date fin</th>
+                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">partner</th>
                                     <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Status</th>
                                     <th class=" w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Action</th>
                                 </tr>
                             </thead>
-                            @foreach ($users as $user )
+                            @foreach ($projects as $project )
                             <tbody class="text-gray-700">
                                 <tr>
                                     <td class="w-1/5 text-left py-3 px-4">
-                                        <img src="{{$user->getFirstMediaUrl('images')}}" alt="" class="rounded-full h-12 w-12">
+                                        <img src="{{$project->getFirstMediaUrl('images')}}" alt="" class="rounded-full h-12 w-12">
                                     </td>
-                                    <td class="w-1/5 text-left py-3 px-4">{{$user->name}}</td>
-                                    <td class="w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662" value="{{ $user->role->id }}">{{$user->role->name}}</a></td>
-                                    <td class="w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">{{$user->email}}</a></td>
-                                    <td class="w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">{{$user->status}}</a></td>
+                                    <td class="w-1/5 text-left py-3 px-4">{{$project->title}}</td>
+                                    <td class="w-1/5 text-left py-3 px-4">{{$project->description}}</td>
+                                    <td class="w-1/5 text-left py-3 px-4">{{$project->date_debut}}</td>
+                                    <td class="w-1/5 text-left py-3 px-4">{{$project->date_fin}}</td>
+                                    <td class="w-1/5 text-left py-3 px-4" >{{--$project->partenaire->name_company--}}</td>
                                     <td class="w-1/5 text-left py-3 px-4">
-                                        <form action="{{route('users.edit', $user->id)}}" method="get">
+                                        <span class="inline-flex items-center justify-center w-3 h-3 py-3 px-10 ms-3 text-sm font-medium 
+                                            @if ($project->status == 0)
+                                            text-red-800 bg-red-100  dark:bg-red-900 dark:text-red-300
+                                            @else
+                                                text-green-800 bg-green-100  dark:bg-green-900 dark:text-green-300
+                                            @endif">
+                                                @foreach($STATUS_LABELS as $key => $value)
+                                                @if ($project->status == $key)
+                                                    {{ $value }}
+                                                @endif
+                                                @endforeach
+                                        </span>
+                                    </td>
+                                    <td class="w-1/5 text-left py-3 px-4">
+                                        <form action="{{route('projects.edit', $project->id)}}" method="get">
                                             @csrf
                                             <input type="hidden" name="id" value="">
                                             <button type="submit" name="editId" style="background: none; border: none;">
                                                 <a href=""><i class="fas fa-pen" style="color: #e8b04f;"></i></a>
                                             </button>
                                         </form>
-                                        <form action="{{route('users.destroy', $user->id)}}" method="post">
-                                        @method('delete')
+                                        <form action="{{route('projects.destroy', $project->id)}}" method="post">
+                                            @method('delete')
                                             @csrf
                                             <input type="hidden" name="id" value="">
-                                            <button type="submit" name="editId" style="background: none; border: none;">
+                                            <button type="submit" name="destroyId" style="background: none; border: none;">
                                                 <a href=""><i class="fas fa-trash" style="color: #e8b04f;"></i></a>
                                             </button>
                                         </form>

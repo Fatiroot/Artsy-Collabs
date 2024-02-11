@@ -18,7 +18,7 @@ class PartenaireController extends Controller
 
     public function create()
     {
-       return view('admin.partenaires.create');
+       //
     }
 
     public function store(StorePartenaireRequest $request )

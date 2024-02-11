@@ -52,7 +52,7 @@ class User extends Authenticatable implements HasMedia
         return $this->belongsTo(Role::class);
     }
 
-    public function projects(){
+    public function project(){
         return $this->belongsToMany(Project::class);
     }
 

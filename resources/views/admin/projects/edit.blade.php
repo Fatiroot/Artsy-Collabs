@@ -21,6 +21,7 @@
         .nav-item:hover { background: orange; }
         .account-link:hover { background: #3d68ff; }
         thead{ background:burlywood;}
+        button { background:wheat; }
     </style>
 </head>
 <body class="bg-gray-100 font-family-karla flex">
@@ -38,11 +39,11 @@
                 <i class="fas fa-tachometer-alt mr-3"></i>
                 Dashboard
             </a>
-            <a href="users" class="flex items-center text-white active-nav-link opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="users" class="flex items-center  text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-sticky-note mr-3"></i>
                 Users
             </a>
-            <a href="projects" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="projects" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
             <i class="fas fa-sticky-note mr-3"></i>
                 Projects
             </a>
@@ -109,11 +110,11 @@
                     <i class="fas fa-tachometer-alt mr-3"></i>
                     Dashboard
                 </a>
-                <a href="users" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="users" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
                     <i class="fas fa-sticky-note mr-3"></i>
                     Users
                 </a>
-                <a href="projects" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="projects" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
                   <i class="fas fa-sticky-note mr-3"></i>
                     Projects
                 </a>
@@ -148,54 +149,72 @@
             <main class="w-full flex-grow p-6">
                 <h1 class="text-3xl text-black pb-6">Dashboard</h1>
                 <div class="w-full mt-12">
-                <p class="text-xl pb-3 flex items-center">
-                        <i class="fas fa-list mr-3"></i> Artists
-                    </p>
-
+                
                     <div class="bg-white overflow-auto">
-                        <table class="min-w-full bg-white">
-                            <thead class=" text-white">
-                                <tr>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Profil</th>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Name</th>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Role</th>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Status</th>
-                                    <th class=" w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Action</th>
-                                </tr>
-                            </thead>
-                            @foreach ($users as $user )
-                            <tbody class="text-gray-700">
-                                <tr>
-                                    <td class="w-1/5 text-left py-3 px-4">
-                                        <img src="{{$user->getFirstMediaUrl('images')}}" alt="" class="rounded-full h-12 w-12">
-                                    </td>
-                                    <td class="w-1/5 text-left py-3 px-4">{{$user->name}}</td>
-                                    <td class="w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662" value="{{ $user->role->id }}">{{$user->role->name}}</a></td>
-                                    <td class="w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">{{$user->email}}</a></td>
-                                    <td class="w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">{{$user->status}}</a></td>
-                                    <td class="w-1/5 text-left py-3 px-4">
-                                        <form action="{{route('users.edit', $user->id)}}" method="get">
-                                            @csrf
-                                            <input type="hidden" name="id" value="">
-                                            <button type="submit" name="editId" style="background: none; border: none;">
-                                                <a href=""><i class="fas fa-pen" style="color: #e8b04f;"></i></a>
-                                            </button>
-                                        </form>
-                                        <form action="{{route('users.destroy', $user->id)}}" method="post">
-                                        @method('delete')
-                                            @csrf
-                                            <input type="hidden" name="id" value="">
-                                            <button type="submit" name="editId" style="background: none; border: none;">
-                                                <a href=""><i class="fas fa-trash" style="color: #e8b04f;"></i></a>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            </tbody>
-
-                            @endforeach
-                        </table>
+           
+                        <form method="post" action="{{route('projects.update', $project->id)}}" class="p-4 md:p-5" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+                                <div class="col-span-2 sm:col-span-1">
+                                    <label for="image"
+                                        class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">
+                                    Profile</label>
+                                    <input type="file" name="image" id="image"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        required="">
+                                </div>
+                                <div class="col-span-2 sm:col-span-1">
+                                    <label for="title"
+                                        class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">
+                                        title</label>
+                                    <input type="text" name="title" id="title"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        required="" value="{{$project->title }}">
+                                </div>
+                                <div class="col-span-2">
+                                    <label for="description"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">description</label>
+                                    <input type="text" name="description" id="description"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        required="" value="{{$project->description }}">
+                                </div>
+                                <div class="col-span-2">
+                                    <label for="date_debut"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">date de debut</label>
+                                    <input type="date" name="date_debut" id="date_debut"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        required="" value="{{$project->date_debut }}" >
+                                </div>
+                                <div class="col-span-2">
+                                    <label for="date_fin"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">date de fin</label>
+                                    <input type="date" name="date_fin" id="date_fin"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        required=""value="{{$project->date_fin }}" >
+                                </div>
+                                <div class="col-span-2">
+                                    <label for="partenaire_id"   
+                                        class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">partenaire</label>  
+                                        <select id="partenaire_id" name="partenaire_id" class="b$g-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        @foreach ($partenaires as $partenaire)
+                                            <option selected value="{{$partenaire->id }}">{{ $partenaire->name_company}}</option>                                                                                   
+                                            @endforeach 
+                                       </select>                       
+                                </div>
+                                <div class="col-span-2 sm:col-span-1">
+                                    <label for="status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">status</label>
+                                    <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                        @foreach($STATUS_LABELS as $key => $value)
+                                            <option value="{{ $key }}">{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>            
+                            </div>
+                            <button name="update" type="submit"
+                                class="text-white inline-flex items-center  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                               update
+                            </button>
+                         </form>
                     </div>
                 </div>
             </main>

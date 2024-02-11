@@ -20,7 +20,6 @@ return new class extends Migration
             $table->date('date_debut'); 
             $table->date('date_fin');
             $table->integer('status')->default(0); 
-           
             $table->foreignId('partenaire_id')->constrained()->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();

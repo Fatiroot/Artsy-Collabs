@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProjectRequest;
 use App\Models\Partenaire;
 use App\Models\Project;
 use Illuminate\Http\Request;
@@ -9,29 +10,26 @@ use Illuminate\Http\Request;
 class ProjectController extends Controller
 {
     public function index()
-    {
-        $projects= Project::all();
-        return view('admin.projects.index');
+    {   
+        
+        $STATUS_LABELS = Project::STATUS_LABELS;
+        $projects = Project::with('partenaire')->get();
+        return view('admin.projects.index', compact('projects','STATUS_LABELS'));
     }
 
     public function create()
     {
-       return view('admin.projects.create');
+        $STATUS_LABELS = Project::STATUS_LABELS;
+        $partenaires = Partenaire::all();
+       return view('admin.projects.create', compact('partenaires','STATUS_LABELS'));
     }
 
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
-        $project=Project::create([
-            'title'=>$request->title,
-            'description'=>$request->description,
-            'date_debut'=>$request->date_debut,
-            'date_fin'=>$request->date_fin,
-            'status'=>$request->status,
-
-        ]);
-        $project->addMediaFromRequest('profile')->toMediaCollection('images');
-        return to_route('admin.projects.index');
-
+        $project=Project::create($request->all());
+        $project->addMediaFromRequest('image')->toMediaCollection('images');
+        return redirect()->route('projects.index');
+        
 
     }
 
@@ -43,8 +41,9 @@ class ProjectController extends Controller
     
     public function edit(Project $project)
     {
+        $STATUS_LABELS = Project::STATUS_LABELS;
         $partenaires = Partenaire::all();
-        return view('admin.projects.edit', compact('project','partenaires'));
+        return view('admin.projects.edit', compact('project','partenaires','STATUS_LABELS'));
     }
 
 
