@@ -1,11 +1,13 @@
 <?php
 
+use App\Models\ProjectUser;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PartenaireController;
+use App\Http\Controllers\ProjectUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +40,14 @@ Route::resource('projects',ProjectController::class);
 
 //Route partenaire:
 Route::resource('partenaires',PartenaireController::class);
+
+
+
+// assign project route 
+
+Route::post('assign-users/{project}', [ProjectUserController::class, 'store'])->name('assign.users');
+
+
 
 Route::get('/dashboard', [UserController::class , 'allusers'])->middleware(['auth', 'verified'])->name('dashboard');
 

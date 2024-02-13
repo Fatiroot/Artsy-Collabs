@@ -145,88 +145,76 @@
             </button> -->
         </header>
         <div class="w-full overflow-x-hidden border-t flex flex-col">
-            <main class="w-full flex-grow p-6">
-                <h1 class="text-3xl text-black pb-6">Dashboard</h1>
-                <div class="w-full mt-12">
-                <div class="flex justify-center items-center">
-            <a href="{{ route('projects.create')}}" class="btn btn-primary bg-green-500 mt-5 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:shadow-outline-green active:bg-green-700">
-                Add New Project
-            </a>
-            </div>
-                <p class="text-xl pb-3 flex items-center">
-                        <i class="fas fa-list mr-3"></i> Projects
-                    </p>
-
-                    <div class="bg-white overflow-auto">
-                        <table class="min-w-full bg-white">
-                            <thead class=" text-white">
-                                <tr>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Profil</th>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">title</th>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">description</th>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">date debut</th>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">date fin</th>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">partner</th>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Status</th>
-                                    <th class=" w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Action</th>
-                                </tr>
-                            </thead>
-                            @foreach ($projects as $project )
-                            <tbody class="text-gray-700">
-                                <tr>
-                                    <td class="w-1/5 text-left py-3 px-4">
-                                        <img src="{{$project->getFirstMediaUrl('images')}}" alt="" class="rounded-full h-12 w-12">
-                                    </td>
-                                    <td class="w-1/5 text-left py-3 px-4">{{$project->title}}</td>
-                                    <td class="w-1/5 text-left py-3 px-4">{{$project->description}}</td>
-                                    <td class="w-1/5 text-left py-3 px-4">{{$project->date_debut}}</td>
-                                    <td class="w-1/5 text-left py-3 px-4">{{$project->date_fin}}</td>
-                                    <td class="w-1/5 text-left py-3 px-4" >{{--$project->partenaire->name_company--}}</td>
-                                    <td class="w-1/5 text-left py-3 px-4">
-                                        <span class="inline-flex items-center justify-center w-3 h-3 py-3 px-10 ms-3 text-sm font-medium 
-                                            @if ($project->status == 0)
-                                            text-red-800 bg-red-100  dark:bg-red-900 dark:text-red-300
-                                            @else
-                                                text-green-800 bg-green-100  dark:bg-green-900 dark:text-green-300
-                                            @endif">
-                                                @foreach($STATUS_LABELS as $key => $value)
-                                                @if ($project->status == $key)
-                                                    {{ $value }}
-                                                @endif
-                                                @endforeach
-                                        </span>
-                                    </td>
-                                    <td class="w-1/5 text-left py-3 px-4">
-                                    <a href="{{ route('projects.show', $project->id) }}" class="dark:hover:text-blue-500">
-                            <span class="material-symbols-outlined hover:text-blue-500">
-                                detail
-                            </span>
-                                        <form action="{{route('projects.edit', $project->id)}}" method="get">
-                                            @csrf
-                                            <input type="hidden" name="id" value="">
-                                            <button type="submit" name="editId" style="background: none; border: none;">
-                                                <a href=""><i class="fas fa-pen" style="color: #e8b04f;"></i></a>
-                                            </button>
-                                        </form>
-                                        <form action="{{route('projects.destroy', $project->id)}}" method="post">
-                                            @method('delete')
-                                            @csrf
-                                            <input type="hidden" name="id" value="">
-                                            <button type="submit" name="destroyId" style="background: none; border: none;">
-                                                <a href=""><i class="fas fa-trash" style="color: #e8b04f;"></i></a>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            </tbody>
-
-                            @endforeach
-                        </table>
-                    </div>
-                </div>
-            </main>
-
+    <main class="w-full flex-grow p-6">
+        <h1 class="text-3xl text-black pb-6">Dashboard</h1>
+        <div class="w-full mt-12 flex justify-center">
+    <div class="max-w-lg">
+        <a href="{{ route('projects.index') }}" class="btn btn-primary bg-green-500 mt-5 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:shadow-outline-green active:bg-green-700 mr-4">
+            Return
+        </a>
         </div>
+        <div class="max-w-xs rounded overflow-hidden shadow-lg mx-auto">
+            <img class="w-full" src="{{ $project->getFirstMediaUrl('images') }}" alt="Image">
+            <div class="px-6 py-4">
+                <div class="font-bold text-xl mb-2">{{ $project->title }}</div>
+               
+                 <p class="text-gray-700 text-base">artist 1</p>   
+      
+                
+            </div>
+        </div>
+        </div>
+          <!-- Modal toggle -->
+           <button data-modal-target="partner-modal" data-modal-toggle="partner-modal" class="bg-green-500 text-white font-bold py-2 px-4 rounded" type="button">
+                Add Artists
+            </button>
+            <div id="partner-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-md max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    add Partner
+                </h3>
+                <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 md:p-5">
+                <form class="space-y-4" method="post" action="{{ route('assign.users', $project->id) }}" enctype="multipart/form-data"> 
+                    @csrf
+                    <div class="w-full mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline"> add Artist </h3>
+                        <input type="hidden" value="{{$project->id}}">
+                        <div class="mt-2">
+                            <select class="w-full   text-gray-700 bg-gray-200 rounded" id="users" name="users[]" multiple>
+                                @foreach($users as $user)
+                                    <option value="{{ $user->id }}"   {{ $project->users->contains($user->id) ? 'selected' : '' }}>{{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                   
+                   
+                    <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add </button>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 
+  
+
+
+    </main>
+</div>
+
         
     </div>
 
@@ -236,6 +224,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
     <!-- ChartJS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 
     <script>
         var chartOne = document.getElementById('chartOne');

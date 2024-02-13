@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProjectRequest;
 use App\Models\Partenaire;
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
     public function index()
     {   
-        
+
         $STATUS_LABELS = Project::STATUS_LABELS;
         $projects = Project::with('partenaire')->get();
         return view('admin.projects.index', compact('projects','STATUS_LABELS'));
@@ -35,7 +36,10 @@ class ProjectController extends Controller
 
     public function show(Project $project)
     {
-        //
+        $users = User::all();
+        $userProjects = $project->user;
+        $STATUS_LABELS = Project::STATUS_LABELS;
+        return view('admin.projects.show', compact('users','userProjects','project','STATUS_LABELS'));
     }
 
     

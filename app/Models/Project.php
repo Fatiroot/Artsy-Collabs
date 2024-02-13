@@ -29,7 +29,7 @@ class Project extends Model implements HasMedia
     ];
     
 
-    public function user(){
+    public function users(){
         return $this->belongsToMany(User::class);
     }
     public function partenaire(){
