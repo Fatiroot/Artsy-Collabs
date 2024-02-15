@@ -33,7 +33,7 @@ class ProjectUserController extends Controller
       {
       
         $user->projects()->syncWithoutDetaching([$request->project_id => ['status'=>1]]);
-        return redirect()->route('home', $request->project_id);
+        return redirect()->route('home', $request->project_id)->with('success', 'your request to collaborate is sent successfully.');
 
       }
 

@@ -2,6 +2,18 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
+    @if($errors->has('status'))
+    <div class="bg-red-500 text-white px-4 py-3 rounded relative" role="alert">
+        <strong class="font-bold">Error!</strong>
+        <span class="block sm:inline">{{ $errors->first('status') }}</span>
+        <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+            <svg class="fill-current h-6 w-6 text-white" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 5.652a.5.5 0 0 1 .708.708L10.707 10l4.349 4.348a.5.5 0 0 1-.708.708L10 10.707l-4.348 4.349a.5.5 0 1 1-.708-.708L9.293 10 4.944 5.652a.5.5 0 0 1 .708-.708L10 9.293l4.348-4.341z"/></svg>
+        </span>
+    </div>
+@endif
+
+
+
     <form method="POST" action="{{ route('login') }}">
         @csrf
 

@@ -168,7 +168,7 @@
                             <tbody class="text-gray-700">
                                 <tr>
                                     <td class="w-1/5 text-left py-3 px-4">
-                                        <img src="{{$user->getFirstMediaUrl('images')}}" alt="" class="rounded-full h-12 w-12">
+                                        <img src="{{$user->getFirstMediaUrl('images')}}" alt="" class="rounded-full h-12 w-12" >
                                     </td>
                                     <td class="w-1/5 text-left py-3 px-4">{{$user->name}}</td>
                                     <td class="w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662" value="{{ $user->role->id }}">{{$user->role->name}}</a></td>

@@ -43,6 +43,10 @@ class PartenaireController extends Controller
     public function update(UpdatePartenaireRequest $request, Partenaire $partenaire)
     {
         $partenaire->update($request->all());
+        if ($request->hasFile('image')) {
+            $partenaire->clearMediaCollection('images');
+            $partenaire->addMediaFromRequest('image')->toMediaCollection('images');
+        }
         return redirect()->route('partenaires.index');
     }
 

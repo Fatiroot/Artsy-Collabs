@@ -148,10 +148,11 @@
                 <div class="w-full mt-12">
                 
                     <div class="bg-white overflow-auto">
-                    <form method="post" action="{{route('partenaires.update', $partenaire->id)}}" class="p-4 md:p-5">
+                    <form method="post" action="{{route('partenaires.update', $partenaire->id)}}" class="p-4 md:p-5" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
             <div class="grid gap-4 mb-4 grid-cols-2">
+                
             <div class="col-span-2 sm:col-span-1">
                     <label for="image"
                         class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">
