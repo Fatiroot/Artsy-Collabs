@@ -40,6 +40,7 @@ Route::post('collaborate/{user}', [ProjectUserController::class, 'collaborate'])
 Route::middleware('admin')->group(function () {
 
 // Route users:
+Route::put('restore/{user}', [UserController::class, 'restore'])->name('users.restore');
 
 
 //Route projects :

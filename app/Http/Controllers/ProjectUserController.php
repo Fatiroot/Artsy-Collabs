@@ -40,7 +40,8 @@ class ProjectUserController extends Controller
     
     public function show()
     {
-        $projectusers = ProjectUser::where('status', 1)->get();
+      $projectusers = ProjectUser::where('status', 1)->get();
+      // $projectusers = ProjectUser::all();
         return view('admin.project_user.index', compact('projectusers'));
     }
     

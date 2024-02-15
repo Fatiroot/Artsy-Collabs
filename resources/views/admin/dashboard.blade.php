@@ -198,6 +198,43 @@
                         </table>
                     </div>
                 </div>
+                <!-- ************************************************ -->
+                <div class="w-full mt-12">
+                    <p class="text-xl pb-3 flex items-center">
+                        <i class="fas fa-list mr-3"></i> Deleted Users
+                    </p>
+                    <div class="bg-white overflow-auto">
+                        <table class="min-w-full bg-white">
+                            <thead class=" text-white">
+                                <tr>
+                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Profil</th>
+                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Name</th>
+                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Role</th>
+                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
+                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">action</th>
+                                </tr>
+                            </thead>
+                            @foreach ($deletedusers as $user )
+                            <tbody class="text-gray-700">
+                                <tr>
+                                <td class="w-1/5 text-left py-3 px-4">
+                                        <img src="{{$user->getFirstMediaUrl('images')}}" alt="" class="rounded-full h-12 w-12">
+                                    </td>
+                                    <td class="w-1/5 text-left py-3 px-4">{{$user->name}}</td>
+                                    <td class=" w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662">{{$user->role->name}}</a></td>
+                                    <td class=" w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">{{$user->email}}</a></td>
+                                     <td> <form action="{{ route('users.restore', $user->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Restore</button>
+                                    </form> </td>
+                                </tr>
+                               
+                            </tbody>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
             </main>
     
             

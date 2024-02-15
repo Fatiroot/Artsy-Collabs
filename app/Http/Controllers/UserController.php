@@ -69,8 +69,15 @@ class UserController extends Controller
     public function allusers()
    {
     $users=User::all();
-    return view('admin.dashboard',compact('users'));
+    $deletedusers = User::onlyTrashed()->get();
+    return view('admin.dashboard',compact('users','deletedusers'));
    }
 
+   public function restore($userId)
+   {
+       $user = User::withTrashed()->find($userId)->restore();
+
+       return redirect()->route('dashboard');
+   }
   
 }
