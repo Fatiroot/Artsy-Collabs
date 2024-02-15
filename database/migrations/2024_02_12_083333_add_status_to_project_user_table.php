@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::table('project_user', function (Blueprint $table) {
             $table->integer('status')->default(0);
+            
         });
     }
 

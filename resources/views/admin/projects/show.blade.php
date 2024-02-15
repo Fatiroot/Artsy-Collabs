@@ -10,6 +10,7 @@
 
     <!-- Tailwind -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
         @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
         .font-family-karla { font-family: karla; }
@@ -46,13 +47,13 @@
             <i class="fas fa-sticky-note mr-3"></i>
                 Projects
             </a>
-            <a href="partenaires" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                <i class="fas fa-align-left mr-3"></i>
-                Partners
-            </a>
-            <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="partenaires" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                    <i class="fas fa-align-left mr-3"></i>
+                    Partnaers
+                </a>
+            <a href="project-user" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
               <i class="fas fa-align-left mr-3"></i> 
-              Account               
+              project-user               
             </a>
             <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">                  
                <i class="fas fa-cogs mr-3"></i>
@@ -121,10 +122,10 @@
                     <i class="fas fa-align-left mr-3"></i>
                     Partnaers
                 </a>
-                <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                   <i class="fas fa-align-left mr-3"></i> 
-                   Account               
-                </a>
+                <a href="project-user" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+              <i class="fas fa-align-left mr-3"></i> 
+              project-user               
+            </a>
                 <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">                  
                    <i class="fas fa-cogs mr-3"></i>
                    Support 
@@ -149,25 +150,34 @@
         <h1 class="text-3xl text-black pb-6">Dashboard</h1>
         <div class="w-full mt-12 flex justify-center">
     <div class="max-w-lg">
-        <a href="{{ route('projects.index') }}" class="btn btn-primary bg-green-500 mt-5 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:shadow-outline-green active:bg-green-700 mr-4">
-            Return
-        </a>
-        </div>
-        <div class="max-w-xs rounded overflow-hidden shadow-lg mx-auto">
+    <div class="text-center mb-4">
+    <a href="{{ route('projects.index') }}" class="btn btn-primary bg-green-500 mt-5 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:shadow-outline-green active:bg-green-700 mr-4">
+        Return
+    </a>
+</div>
+   
+        <div class=" rounded overflow-hidden shadow-lg mx-auto">
             <img class="w-full" src="{{ $project->getFirstMediaUrl('images') }}" alt="Image">
             <div class="px-6 py-4">
                 <div class="font-bold text-xl mb-2">{{ $project->title }}</div>
-               
-                 <p class="text-gray-700 text-base">artist 1</p>   
-      
-                
+                <p class="card-text"><strong>Artists:</strong>
+                    @foreach ($project->users as $index => $user)
+                        <i>{{ $user->name }},</i>
+                       
+                    @endforeach
+                 </p>
             </div>
         </div>
-        </div>
+
+    </div>
+ </div>
           <!-- Modal toggle -->
-           <button data-modal-target="partner-modal" data-modal-toggle="partner-modal" class="bg-green-500 text-white font-bold py-2 px-4 rounded" type="button">
-                Add Artists
-            </button>
+          <div class="flex justify-center items-center mt-8">
+                <button data-modal-target="partner-modal" data-modal-toggle="partner-modal" class="bg-green-500 text-white font-bold py-2 px-4 rounded" type="button">
+                    Add Artists
+                </button>
+           </div>
+
             <div id="partner-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">
         <!-- Modal content -->
@@ -192,11 +202,12 @@
                         <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline"> add Artist </h3>
                         <input type="hidden" value="{{$project->id}}">
                         <div class="mt-2">
-                            <select class="w-full   text-gray-700 bg-gray-200 rounded" id="users" name="users[]" multiple>
+                            <!-- <select class="w-full   text-gray-700 bg-gray-200 rounded" id="users" name="users[]" multiple> -->
+                            <select class="js-example-basic-multiple select2 form-control" name="user[]" multiple="multiple" style="width: 250px;">
                                 @foreach($users as $user)
-                                    <option value="{{ $user->id }}"   {{ $project->users->contains($user->id) ? 'selected' : '' }}>{{ $user->name }}</option>
+                                    <option value="{{ $user->id }}" {{ $project->users->contains($user->id) ? 'selected' : '' }}>{{ $user->name }}</option>
                                 @endforeach
-                            </select>
+                            </select> 
                         </div>
                     </div>
 
@@ -215,8 +226,7 @@
     </main>
 </div>
 
-        
-    </div>
+      
 
     <!-- AlpineJS -->
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
@@ -227,6 +237,14 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+           
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
     <script>
         var chartOne = document.getElementById('chartOne');
         var myChart = new Chart(chartOne, {

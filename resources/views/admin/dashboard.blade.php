@@ -50,9 +50,9 @@
                 <i class="fas fa-align-left mr-3"></i>
                 Partners
             </a>
-            <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="project-user" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
               <i class="fas fa-align-left mr-3"></i> 
-              Account               
+              project-user               
             </a>
             <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">                  
                <i class="fas fa-cogs mr-3"></i>
@@ -121,10 +121,10 @@
                     <i class="fas fa-align-left mr-3"></i>
                     Partnaers
                 </a>
-                <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                   <i class="fas fa-align-left mr-3"></i> 
-                   Account               
-                </a>
+                <a href="project-user" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+              <i class="fas fa-align-left mr-3"></i> 
+              project-user               
+               </a>
                 <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">                  
                    <i class="fas fa-cogs mr-3"></i>
                    Support 
@@ -179,7 +179,6 @@
                                     <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Name</th>
                                     <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Role</th>
                                     <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
-                                    <th class=" w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Action</th>
                                 </tr>
                             </thead>
                             @foreach ($users as $user )
@@ -191,12 +190,7 @@
                                     <td class="w-1/5 text-left py-3 px-4">{{$user->name}}</td>
                                     <td class=" w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662">{{$user->role->name}}</a></td>
                                     <td class=" w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">{{$user->email}}</a></td>
-                                    <td class=" w-1/5 text-left py-3 px-4">
-                                        <a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">update     
-                                        </a>
-                                        <a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">delete    
-                                        </a>
-                                    </td>
+                
                                 </tr>
                                
                             </tbody>
@@ -206,9 +200,7 @@
                 </div>
             </main>
     
-            <footer class="w-full bg-white text-right p-4">
-                Built by <a target="_blank" href="https://davidgrzyb.com" class="underline">David Grzyb</a>.
-            </footer>
+            
         </div>
         
     </div>

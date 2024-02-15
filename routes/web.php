@@ -23,16 +23,24 @@ use App\Http\Controllers\ProjectUserController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::resource('users',UserController::class);
+
+Route::middleware(['auth', 'verified'])->group(function () {
 
 //Route home :
 
-Route::get('home',[HomeController::class, 'index']);
+Route::get('home',[HomeController::class, 'index'])->name('home');
+
+Route::resource('project-user', ProjectUserController::class);
+
+Route::post('collaborate/{user}', [ProjectUserController::class, 'collaborate'])->name('collaborate');
+
+//Route Admin
+
+Route::middleware('admin')->group(function () {
 
 // Route users:
-Route::resource('users',UserController::class);
-
-
-
+Route::put('updatestatus/{user}', [UserController::class, 'updatestatus'])->name('updatestatus');
 
 
 //Route projects :
@@ -41,15 +49,22 @@ Route::resource('projects',ProjectController::class);
 //Route partenaire:
 Route::resource('partenaires',PartenaireController::class);
 
-
+//Route project-user
+Route::get('project-user',[ProjectUserController::class, 'show'])->name('project-user');
 
 // assign project route 
-
 Route::post('assign-users/{project}', [ProjectUserController::class, 'store'])->name('assign.users');
 
+Route::get('/dashboard', [UserController::class , 'allusers'])->name('dashboard');
+
+ });
+
+});
 
 
-Route::get('/dashboard', [UserController::class , 'allusers'])->middleware(['auth', 'verified'])->name('dashboard');
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -50,9 +50,9 @@
                 <i class="fas fa-align-left mr-3"></i>
                 Partners
             </a>
-            <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="project-user" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
               <i class="fas fa-align-left mr-3"></i> 
-              Account               
+              project-user               
             </a>
             <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">                  
                <i class="fas fa-cogs mr-3"></i>
@@ -121,10 +121,10 @@
                     <i class="fas fa-align-left mr-3"></i>
                     Partnaers
                 </a>
-                <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                   <i class="fas fa-align-left mr-3"></i> 
-                   Account               
-                </a>
+                <a href="project-user" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+              <i class="fas fa-align-left mr-3"></i> 
+              project-user               
+            </a>
                 <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">                  
                    <i class="fas fa-cogs mr-3"></i>
                    Support 
@@ -175,13 +175,13 @@
                             <tbody class="text-gray-700">
                                 <tr>
                                     <td class="w-1/5 text-left py-3 px-4">
-                                        <img src="{{$project->getFirstMediaUrl('images')}}" alt="" class="rounded-full h-12 w-12">
+                                    <img src="{{$project->getFirstMediaUrl('images')}}" alt="" class="rounded h-16 w-20">
                                     </td>
                                     <td class="w-1/5 text-left py-3 px-4">{{$project->title}}</td>
                                     <td class="w-1/5 text-left py-3 px-4">{{$project->description}}</td>
                                     <td class="w-1/5 text-left py-3 px-4">{{$project->date_debut}}</td>
                                     <td class="w-1/5 text-left py-3 px-4">{{$project->date_fin}}</td>
-                                    <td class="w-1/5 text-left py-3 px-4" >{{--$project->partenaire->name_company--}}</td>
+                                    <td class="w-1/5 text-left py-3 px-4" >{{$project->partenaire->name_company}}</td>
                                     <td class="w-1/5 text-left py-3 px-4">
                                         <span class="inline-flex items-center justify-center w-3 h-3 py-3 px-10 ms-3 text-sm font-medium 
                                             @if ($project->status == 0)
@@ -198,8 +198,8 @@
                                     </td>
                                     <td class="w-1/5 text-left py-3 px-4">
                                     <a href="{{ route('projects.show', $project->id) }}" class="dark:hover:text-blue-500">
-                            <span class="material-symbols-outlined hover:text-blue-500">
-                                detail
+                            <span class="material-symbols-outlined hover:text-blue-500"><i class="fas fa-angles-right" style="color: #e8b04f;"></i>
+                               
                             </span>
                                         <form action="{{route('projects.edit', $project->id)}}" method="get">
                                             @csrf

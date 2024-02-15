@@ -52,7 +52,19 @@ class UserController extends Controller
         $user->update($request->all());
         return redirect()->route('users.index');
    }
-
+   public function updatestatus($userId)
+   {
+     $user = User::find($userId);
+     if($user){
+       if($user->status){
+         $user->status='active';
+       }else{
+         $user->status='disactive';
+       }
+       $user->save();
+     }
+     return back();
+  }
 
     
     public function destroy(User $user)

@@ -12,9 +12,8 @@ class ProjectController extends Controller
 {
     public function index()
     {   
-
-        $STATUS_LABELS = Project::STATUS_LABELS;
         $projects = Project::with('partenaire')->get();
+        $STATUS_LABELS = Project::STATUS_LABELS;
         return view('admin.projects.index', compact('projects','STATUS_LABELS'));
     }
 

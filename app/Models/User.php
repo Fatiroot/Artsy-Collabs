@@ -48,11 +48,11 @@ class User extends Authenticatable implements HasMedia
         'email_verified_at' => 'datetime',
     ];
 
-    public function Role(){
+    public function role(){
         return $this->belongsTo(Role::class);
     }
 
-    public function project(){
+    public function projects(){
         return $this->belongsToMany(Project::class);
     }
 

@@ -9,13 +9,13 @@ use Illuminate\Http\Request;
 
 class ProjectUserController extends Controller
 {
-    public function index()
-    {   
+    // public function index()
+    // {   
       
-        $projects = Project::all();
-        $users = User::all();
-        return view('admin.project_user.index',compact('users','projects'));
-      }
+    //     $projects = Project::all();
+    //     $users = User::all();
+    //     return view('admin.project_user.index',compact('users','projects'));
+    //   }
 
     public function create()
     {
@@ -23,39 +23,50 @@ class ProjectUserController extends Controller
 
     public function store(Request $request,Project $project)
     {
-      // $project = Project::findOrFail($id);
-      // $project->user()->sync($request->user);
-      // return redirect()->route('userproject.index');
-
-    //   $validated = $request->validate([
-    //     'user_id' => 'required|exists:users,id',
-    // ]);
-
-    //  $project->user()->sync($request->user);
-    
-    $project->users()->sync($request->user);
+     
+    $project->users()->syncWithoutDetaching($request->user);
         
     return redirect()->route('projects.show', $project->id);
    }
 
-    public function show(ProjectUser $projectuser)
+    public function collaborate(Request $request, User $user)
     {
-        //
+     
+      $user->projects()->syncWithoutDetaching([$request->project_id => ['status'=>1]]);
+      return redirect()->route('home', $request->project_id);
+
     }
 
     
-    public function edit(ProjectUser $projectuser)
-    {
-     }
+    public function show()
+{
+  // $projectusers = ProjectUser::with('user','project')->get();
+  $projectusers = ProjectUser::all();
+  return view('admin.project_user.index',compact('projectusers'));
+
+}
 
 
    
-    public function update(Request $request, ProjectUser $projectuser)
+    public function update($projectuserId)
     {
+      $projectuser = ProjectUser::find($projectuserId);
+      if($projectuser){
+        if($projectuser->status){
+          $projectuser->status=0;
+        }else{
+          $projectuser->status=1;
+        }
+        $projectuser->save();
+      }
+      return back();
    }
 
     
-    public function destroy(ProjectUser $projectuser)
+    public function destroy($projectUserId)
     {
-   }
+      $projectuser = ProjectUser::find($projectUserId);
+      $projectuser->delete();
+      return back();
+       }
 }

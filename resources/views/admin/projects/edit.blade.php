@@ -51,9 +51,9 @@
                 <i class="fas fa-align-left mr-3"></i>
                 Partners
             </a>
-            <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="project-user" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
               <i class="fas fa-align-left mr-3"></i> 
-              Account               
+              project-user               
             </a>
             <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">                  
                <i class="fas fa-cogs mr-3"></i>
@@ -122,9 +122,9 @@
                     <i class="fas fa-align-left mr-3"></i>
                     Partnaers
                 </a>
-                <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                   <i class="fas fa-align-left mr-3"></i> 
-                   Account               
+                <a href="project-user" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+              <i class="fas fa-align-left mr-3"></i> 
+              project-user               
                 </a>
                 <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">                  
                    <i class="fas fa-cogs mr-3"></i>

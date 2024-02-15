@@ -50,9 +50,9 @@
                 <i class="fas fa-align-left mr-3"></i>
                 Partners
             </a>
-            <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="project-user" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
               <i class="fas fa-align-left mr-3"></i> 
-              Account               
+              project-user               
             </a>
             <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">                  
                <i class="fas fa-cogs mr-3"></i>
@@ -121,10 +121,10 @@
                     <i class="fas fa-align-left mr-3"></i>
                     Partnaers
                 </a>
-                <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                   <i class="fas fa-align-left mr-3"></i> 
-                   Account               
-                </a>
+                <a href="project-user" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+              <i class="fas fa-align-left mr-3"></i> 
+              project-user               
+            </a>
                 <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">                  
                    <i class="fas fa-cogs mr-3"></i>
                    Support 
@@ -173,7 +173,24 @@
                                     <td class="w-1/5 text-left py-3 px-4">{{$user->name}}</td>
                                     <td class="w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662" value="{{ $user->role->id }}">{{$user->role->name}}</a></td>
                                     <td class="w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">{{$user->email}}</a></td>
-                                    <td class="w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">{{$user->status}}</a></td>
+                                    <td class="w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com"><form action="{{ route('updatestatus', $user->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="hover:text-blue-500" value="">
+                                                <p class="text-gray-900 whitespace-no-wrap">
+                                                    @if($user->status==='active')
+                                                    <span
+                                                        class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-indigo-300">active</span>
+
+                                                    @else
+                                                    <span
+                                                        class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-indigo-300">inactive</span>
+
+                                                    @endif
+                                                </p>
+                                            </button>
+                                        </form></a></td>
                                     <td class="w-1/5 text-left py-3 px-4">
                                         <form action="{{route('users.edit', $user->id)}}" method="get">
                                             @csrf
