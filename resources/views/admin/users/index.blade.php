@@ -173,10 +173,8 @@
                                     <td class="w-1/5 text-left py-3 px-4">{{$user->name}}</td>
                                     <td class="w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662" value="{{ $user->role->id }}">{{$user->role->name}}</a></td>
                                     <td class="w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">{{$user->email}}</a></td>
-                                    <td class="w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com"><form action="{{ route('updatestatus', $user->id) }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('PUT')
+                                    <td class="w-1/5 text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">
+                                            
                                             <button type="submit" class="hover:text-blue-500" value="">
                                                 <p class="text-gray-900 whitespace-no-wrap">
                                                     @if($user->status==='active')
@@ -190,7 +188,7 @@
                                                     @endif
                                                 </p>
                                             </button>
-                                        </form></a></td>
+                                        </a></td>
                                     <td class="w-1/5 text-left py-3 px-4">
                                         <form action="{{route('users.edit', $user->id)}}" method="get">
                                             @csrf

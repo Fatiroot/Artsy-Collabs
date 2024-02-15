@@ -50,21 +50,13 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $user->update($request->all());
+        if ($request->hasFile('image')) {
+          $user->clearMediaCollection('images');
+          $user->addMediaFromRequest('image')->toMediaCollection('images');
+      }
         return redirect()->route('users.index');
    }
-   public function updatestatus($userId)
-   {
-     $user = User::find($userId);
-     if($user){
-       if($user->status){
-         $user->status='active';
-       }else{
-         $user->status='disactive';
-       }
-       $user->save();
-     }
-     return back();
-  }
+  
 
     
     public function destroy(User $user)

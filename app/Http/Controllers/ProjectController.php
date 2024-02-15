@@ -54,6 +54,10 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $project->update($request->all());
+        if ($request->hasFile('image')) {
+            $project->clearMediaCollection('images');
+            $project->addMediaFromRequest('image')->toMediaCollection('images');
+        }
         return redirect()->route('projects.index');
     }
 

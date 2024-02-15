@@ -40,7 +40,6 @@ Route::post('collaborate/{user}', [ProjectUserController::class, 'collaborate'])
 Route::middleware('admin')->group(function () {
 
 // Route users:
-Route::put('updatestatus/{user}', [UserController::class, 'updatestatus'])->name('updatestatus');
 
 
 //Route projects :

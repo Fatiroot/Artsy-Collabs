@@ -22,30 +22,28 @@ class ProjectUserController extends Controller
     }
 
     public function store(Request $request,Project $project)
-    {
-     
-    $project->users()->syncWithoutDetaching($request->user);
-        
-    return redirect()->route('projects.show', $project->id);
-   }
+      {
+      
+      $project->users()->syncWithoutDetaching($request->user);
+          
+      return redirect()->route('projects.show', $project->id);
+    }
 
     public function collaborate(Request $request, User $user)
-    {
-     
-      $user->projects()->syncWithoutDetaching([$request->project_id => ['status'=>1]]);
-      return redirect()->route('home', $request->project_id);
+      {
+      
+        $user->projects()->syncWithoutDetaching([$request->project_id => ['status'=>1]]);
+        return redirect()->route('home', $request->project_id);
 
-    }
+      }
 
     
     public function show()
-{
-  // $projectusers = ProjectUser::with('user','project')->get();
-  $projectusers = ProjectUser::all();
-  return view('admin.project_user.index',compact('projectusers'));
-
-}
-
+    {
+        $projectusers = ProjectUser::where('status', 1)->get();
+        return view('admin.project_user.index', compact('projectusers'));
+    }
+    
 
    
     public function update($projectuserId)
